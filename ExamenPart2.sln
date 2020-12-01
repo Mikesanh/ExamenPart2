@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30709.132
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamenPart2.API", "ExamenPart2\ExamenPart2.API.csproj", "{FD44D73F-9C25-42F9-BB1E-AD957866F11D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamenPart2.Core", "ExamenPart2.Core\ExamenPart2.Core.csproj", "{72A4C9FE-1374-4BD0-8A6A-E7AD556318BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamenPart2.Infrastructure", "ExamenPart2.Infrastructure\ExamenPart2.Infrastructure.csproj", "{16EEFDBE-E23C-4608-9A48-3248B0778DA3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{72A4C9FE-1374-4BD0-8A6A-E7AD556318BE} = {72A4C9FE-1374-4BD0-8A6A-E7AD556318BE}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FD44D73F-9C25-42F9-BB1E-AD957866F11D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD44D73F-9C25-42F9-BB1E-AD957866F11D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD44D73F-9C25-42F9-BB1E-AD957866F11D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD44D73F-9C25-42F9-BB1E-AD957866F11D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72A4C9FE-1374-4BD0-8A6A-E7AD556318BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72A4C9FE-1374-4BD0-8A6A-E7AD556318BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72A4C9FE-1374-4BD0-8A6A-E7AD556318BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72A4C9FE-1374-4BD0-8A6A-E7AD556318BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16EEFDBE-E23C-4608-9A48-3248B0778DA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16EEFDBE-E23C-4608-9A48-3248B0778DA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16EEFDBE-E23C-4608-9A48-3248B0778DA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16EEFDBE-E23C-4608-9A48-3248B0778DA3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A85BAB58-FBFE-4439-9CC7-88E3595E14D5}
+	EndGlobalSection
+EndGlobal
