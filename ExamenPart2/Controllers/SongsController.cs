@@ -25,9 +25,23 @@ namespace ExamenPart2.API.Controllers
         }
         // GET: api/<SongsController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public ActionResult<IEnumerable<Song>> Get()
         {
-            return new string[] { "value1", "value2" };
+            var serviceResult = _songService.getSongs();
+            if (serviceResult.ResponseCode != ResponseCode.Success)
+                return BadRequest(serviceResult.Error);
+
+            return Ok(serviceResult.Result.Select(p => new Song
+            {
+                songName = p.songName,
+                artistName = p.artistName,
+                bought = p.bought,
+                popularity = p.popularity,
+                sid = p.sid,
+                price = p.price,
+                albumId = p.albumId,
+                duration = p.duration
+            }));
         }
 
         // GET api/<SongsController>/5
