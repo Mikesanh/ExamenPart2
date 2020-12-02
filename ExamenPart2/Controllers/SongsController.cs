@@ -46,10 +46,25 @@ namespace ExamenPart2.API.Controllers
 
         // GET api/<SongsController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public ActionResult<IEnumerable<Song>> Get(int id)
         {
+            var serviceResult = _songService.GetSongbyId(id);
+            if (serviceResult.ResponseCode != ResponseCode.Success)
+                return BadRequest(serviceResult.Error);
 
-            return "value";
+            var song = serviceResult.Result;
+            return Ok(new Song
+            {
+                songName = song.songName,
+                artistName = song.artistName,
+                bought = song.bought,
+                popularity = song.popularity,
+                sid = song.sid,
+                price = song.price,
+                albumId = song.albumId,
+                duration = song.duration
+            });
+            
         }
 
         // POST api/<SongsController>
