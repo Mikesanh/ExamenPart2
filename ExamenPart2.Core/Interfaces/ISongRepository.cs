@@ -7,6 +7,6 @@ namespace ExamenPart2.Core.Interfaces
 {
     public interface ISongRepository
     {
-        Song AddSong(Song bodySong);
+        Song AddSong_and_Update_Popularity_Price_FromAlbum(Song bodySong);
     }
 }

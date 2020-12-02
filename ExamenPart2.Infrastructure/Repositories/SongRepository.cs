@@ -15,7 +15,7 @@ namespace ExamenPart2.Infrastructure.Repositories
         {
         }
 
-        public Song AddSong(Song bodySong)
+        public Song AddSong_and_Update_Popularity_Price_FromAlbum(Song bodySong)
         {
             //get songs from selected album with same id of the new song
             var songsinAlbum = _ExamenPart2DbContext.Songs.Where(x => x.albumId == bodySong.albumId);

@@ -71,7 +71,7 @@ namespace ExamenPart2.API.Controllers
         [HttpPost]
         public ActionResult<Song> Post([FromBody] Song bodySong)
         {
-            var serviceResult = _songService.AddSong(bodySong);
+            var serviceResult = _songService.AddSong_and_Update_Popularity_Price_FromAlbum(bodySong);
             if (serviceResult.ResponseCode != ResponseCode.Success)
                 return BadRequest(serviceResult.Error);
             var result = new Song

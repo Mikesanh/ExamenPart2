@@ -10,7 +10,7 @@ namespace ExamenPart2.Core.Interfaces
      
         ServiceResult<IEnumerable<Song>> getSongs();
         ServiceResult<Song> GetSongbyId(int id);
-        ServiceResult<Song> AddSong(Song bodySong);
+        ServiceResult<Song> AddSong_and_Update_Popularity_Price_FromAlbum(Song bodySong);
 
     }
 }

@@ -27,9 +27,9 @@ namespace ExamenPart2.Core.Services
             return ServiceResult<Song>.SuccessResult(_songRepository.GetById(id));
         }
 
-        public ServiceResult<Song> AddSong(Song bodySong)
+        public ServiceResult<Song> AddSong_and_Update_Popularity_Price_FromAlbum(Song bodySong)
         {
-            return ServiceResult<Song>.SuccessResult(_isongRepository.AddSong(bodySong));
+            return ServiceResult<Song>.SuccessResult(_isongRepository.AddSong_and_Update_Popularity_Price_FromAlbum(bodySong));
 
         }
     }
