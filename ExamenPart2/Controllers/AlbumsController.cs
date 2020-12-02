@@ -27,7 +27,7 @@ namespace ExamenPart2.API.Controllers
 
 
         // GET api/<AlbumController>/5
-        [HttpGet("Top10")]
+        [HttpGet("api/Top10")]
         public ActionResult<IEnumerable<Album>> Getpop()
         {
             var serviceResult = _albumService.GetPopularAlbums();
