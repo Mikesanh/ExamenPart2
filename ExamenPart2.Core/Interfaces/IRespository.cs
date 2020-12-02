@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExamenPart2.Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
@@ -18,5 +19,11 @@ namespace ExamenPart2.Core.Interfaces
         void Update(T entity);
 
         int SaveChanges();
+
+        //public void AddSong(Song bodySong);
+
+        //public Album AddAlbum(Album bodyAlbum);
+
+        //IEnumerable<Album> GetPopularAlbums();
     }
 }

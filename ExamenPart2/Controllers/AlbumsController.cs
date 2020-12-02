@@ -7,6 +7,7 @@ using ExamenPart2.API.Models;
 using System.Threading.Tasks;
 using ExamenPart2.Core.Entities;
 using ExamenPart2.Core.Interfaces;
+using ExamenPart2.Core.Enums;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,96 +17,87 @@ namespace ExamenPart2.API.Controllers
     [ApiController]
     public class AlbumsController : ControllerBase
     {
-        private readonly ExamenPart2DbContext dbContext;
+       
         private readonly IAlbumService _albumService;
-        public AlbumsController(ExamenPart2DbContext _context)
-        {
-            dbContext = _context;
-        }
+       
         public AlbumsController(IAlbumService albumService) 
         {
             _albumService = albumService;
         }
 
-        // GET api/<AlbumsController>
-        [HttpGet]
-        public IEnumerable<Album> Get2()
-        {
-            return dbContext.Albums;
-        }
 
         // GET api/<AlbumController>/5
         [HttpGet("Top10")]
-     
-        public List<Album> Get(int id)
+        public ActionResult<IEnumerable<Album>> Getpop()
         {
-            var myAlbums = dbContext.Albums;
-            var mostPopularAlbums = dbContext.Albums.OrderByDescending(x => x.score).Take(10);
+            var serviceResult = _albumService.GetPopularAlbums();
+            if (serviceResult.ResponseCode != ResponseCode.Success)
+                return BadRequest(serviceResult.Error);
 
-            List<Album> Top10MostPopularAlbums = new List<Album>();
-            Album nAlbum = new Album();
-          
-            foreach (var item in mostPopularAlbums)
+            var albums = serviceResult.Result;
+            return Ok(albums.Select(p => new Album
             {
-
-                nAlbum.albumName = item.albumName;
-                nAlbum.artistName = item.artistName;
-                nAlbum.bought = item.bought;
-                nAlbum.date = item.date;
-                nAlbum.score = item.score;
-                nAlbum.description = item.description;
-                nAlbum.genre = item.genre;
-                nAlbum.id = item.id;
-                nAlbum.image = item.image;
-                nAlbum.price = item.price;
-                nAlbum.songs = item.songs;
-                
-                Top10MostPopularAlbums.Add(nAlbum);
-
-            }
-
-
-            return Top10MostPopularAlbums;
+                albumName=p.albumName,
+                artistName=p.artistName,
+                bought=p.bought,
+                date=p.date,
+                description=p.description,
+                genre=p.genre,
+                id=p.id,
+                image=p.image,
+                price=p.price,
+                score=p.score,
+                songs=p.songs
+            }));
         }
 
         // GET: api/Albums
         [HttpGet]
-        public int Get()
+        public ActionResult<IEnumerable<Album>> Get()
         {
-            var albumsDb = dbContext.Albums.Select(album => new AlbumDto
+            var serviceResult = _albumService.GetAlbums();
+            if (serviceResult.ResponseCode != ResponseCode.Success)
+                return BadRequest(serviceResult.Error);
+
+            return Ok(serviceResult.Result.Select(p => new Album
             {
-                id = album.id,
-                albumName = album.albumName,
-                image = album.image,
-                artistName = album.artistName,
-            });
-
-
-
-            return 1;
+                albumName = p.albumName,
+                artistName = p.artistName,
+                bought = p.bought,
+                date = p.date,
+                description = p.description,
+                genre = p.genre,
+                id = p.id,
+                image = p.image,
+                price = p.price,
+                score = p.score,
+                songs = p.songs
+            }));
         }
 
         //POST api/<AlbumController>
         [HttpPost]
-        public void Post([FromBody] Album bodyAlbum)
+        public ActionResult<Album> Post([FromBody] Album bodyAlbum)
         {
-            Album nAlbum = new Album
+            var serviceResult = _albumService.AddAlbum(bodyAlbum);
+            if (serviceResult.ResponseCode != ResponseCode.Success)
+                return BadRequest(serviceResult.Error);
+            var result= new Album
             {
-                albumName = bodyAlbum.albumName,
-                artistName = bodyAlbum.artistName,
-                bought = bodyAlbum.bought,
-                date=bodyAlbum.date,
-                score=bodyAlbum.score,
-                description=bodyAlbum.description,
-                genre=bodyAlbum.genre,
-                id=bodyAlbum.id,
-                image=bodyAlbum.image,
-                price=bodyAlbum.price,
-                songs=bodyAlbum.songs,    
+                albumName = serviceResult.Result.albumName,
+                artistName = serviceResult.Result.artistName,
+                bought = serviceResult.Result.bought,
+                date= serviceResult.Result.date,
+                score= serviceResult.Result.score,
+                description= serviceResult.Result.description,
+                genre= serviceResult.Result.genre,
+                id= serviceResult.Result.id,
+                image= serviceResult.Result.image,
+                price= serviceResult.Result.price,
+                songs= serviceResult.Result.songs,    
             };
-            dbContext.Albums.Add(nAlbum);
-            dbContext.SaveChanges();
 
+            return Ok(result);
         }
 
         // PUT api/<AlbumController>/5

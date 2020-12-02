@@ -8,10 +8,13 @@ namespace ExamenPart2.Core.Interfaces
 {
     public interface IAlbumService
     {
-        void  GetAlbums();
+         ServiceResult<IEnumerable<Album>> GetAlbums();
 
-        void  GetAlbumbyId(string name);
+        ServiceResult<IEnumerable<Album>> GetPopularAlbums();
 
+        ServiceResult<Album> GetAlbumbyId(int id);
+
+        ServiceResult<Album> AddAlbum(Album bodyAlbum);
 
 
 

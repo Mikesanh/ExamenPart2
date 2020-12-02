@@ -9,10 +9,13 @@ namespace ExamenPart2.Core.Interfaces
     {
      
 
-        //IRepository<Song> SongRepository { get; set; }
+       
 
-        void getSongs();
-        void addSong();
+        ServiceResult<IEnumerable<Song>> getSongs();
+        ServiceResult<Song> GetSongbyId(int id);
+        ServiceResult<Song> AddSong(Song bodySong);
+
+
 
 
     }

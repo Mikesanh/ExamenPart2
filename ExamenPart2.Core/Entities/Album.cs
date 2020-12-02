@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ExamenPart2.Core.Entities
 {
-    public class Album
+    public class Album : BaseEntity
     {
         public int id { get; set; }
         public bool bought { get; set; }

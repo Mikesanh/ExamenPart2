@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ExamenPart2.Core.Entities
 {
-    public class Song
+    public class Song : BaseEntity
     {
         public int albumId { get; set; }
         public int sid { get; set; }
