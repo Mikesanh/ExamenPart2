@@ -7,7 +7,7 @@ namespace ExamenPart2.API.Models
 {
     public class SongDto
     {   
-        public int sid { get; set; }
+        public int id { get; set; }
         public bool bought { get; set; }
         public string songName { get; set; }
         public string artistName { get; set; }

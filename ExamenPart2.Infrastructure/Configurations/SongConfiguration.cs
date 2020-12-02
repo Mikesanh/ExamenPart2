@@ -12,8 +12,8 @@ namespace ExamenPart2.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<Song> builder)
         {
-            builder.HasKey(x => x.sid);
-            builder.Property(x => x.sid).ValueGeneratedOnAdd();
+            builder.HasKey(x => x.id);
+            builder.Property(x => x.id).ValueGeneratedOnAdd();
             builder.Property(x => x.songName).IsRequired();
             builder.Property(x => x.artistName).IsRequired();
             builder.Property(x => x.bought).IsRequired();

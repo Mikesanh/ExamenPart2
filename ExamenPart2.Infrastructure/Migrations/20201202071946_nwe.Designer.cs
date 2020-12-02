@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExamenPart2.Infrastructure.Migrations
 {
     [DbContext(typeof(ExamenPart2DbContext))]
-    [Migration("20201129013123_initialmig")]
-    partial class initialmig
+    [Migration("20201202071946_nwe")]
+    partial class nwe
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -61,11 +61,11 @@ namespace ExamenPart2.Infrastructure.Migrations
 
             modelBuilder.Entity("ExamenPart2.Core.Entities.Song", b =>
                 {
-                    b.Property<int>("sid")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("Albumid")
+                    b.Property<int>("albumId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("artistName")
@@ -88,9 +88,9 @@ namespace ExamenPart2.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("sid");
+                    b.HasKey("id");
 
-                    b.HasIndex("Albumid");
+                    b.HasIndex("albumId");
 
                     b.ToTable("Songs");
                 });
@@ -99,7 +99,9 @@ namespace ExamenPart2.Infrastructure.Migrations
                 {
                     b.HasOne("ExamenPart2.Core.Entities.Album", null)
                         .WithMany("songs")
-                        .HasForeignKey("Albumid");
+                        .HasForeignKey("albumId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ExamenPart2.Core.Entities.Album", b =>

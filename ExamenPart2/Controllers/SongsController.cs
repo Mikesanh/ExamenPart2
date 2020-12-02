@@ -37,7 +37,7 @@ namespace ExamenPart2.API.Controllers
                 artistName = p.artistName,
                 bought = p.bought,
                 popularity = p.popularity,
-                sid = p.sid,
+                id = p.id,
                 price = p.price,
                 albumId = p.albumId,
                 duration = p.duration
@@ -59,7 +59,7 @@ namespace ExamenPart2.API.Controllers
                 artistName = song.artistName,
                 bought = song.bought,
                 popularity = song.popularity,
-                sid = song.sid,
+                id = song.id,
                 price = song.price,
                 albumId = song.albumId,
                 duration = song.duration
@@ -80,7 +80,7 @@ namespace ExamenPart2.API.Controllers
                 artistName = serviceResult.Result.artistName,
                 bought = serviceResult.Result.bought,
                 popularity = serviceResult.Result.popularity,
-                sid = serviceResult.Result.sid,
+                id = serviceResult.Result.id,
                 price = serviceResult.Result.price,
                 albumId= serviceResult.Result.albumId,
                 duration=serviceResult.Result.duration
@@ -102,7 +102,7 @@ namespace ExamenPart2.API.Controllers
             //    duration = bodySong.duration,
             //    popularity=bodySong.popularity,
             //    price=bodySong.price,
-            //    sid=bodySong.sid,
+            //    id=bodySong.id,
             //    songName=bodySong.songName,
             //};
 

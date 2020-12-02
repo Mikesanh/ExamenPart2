@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ExamenPart2.Infrastructure.Migrations
 {
-    public partial class initialmig : Migration
+    public partial class nwe : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -32,31 +32,31 @@ namespace ExamenPart2.Infrastructure.Migrations
                 name: "Songs",
                 columns: table => new
                 {
-                    sid = table.Column<int>(type: "INTEGER", nullable: false)
+                    id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    albumId = table.Column<int>(type: "INTEGER", nullable: false),
                     bought = table.Column<bool>(type: "INTEGER", nullable: false),
                     songName = table.Column<string>(type: "TEXT", nullable: false),
                     artistName = table.Column<string>(type: "TEXT", nullable: false),
                     duration = table.Column<int>(type: "INTEGER", nullable: false),
                     popularity = table.Column<int>(type: "INTEGER", nullable: false),
-                    price = table.Column<double>(type: "REAL", nullable: false),
-                    Albumid = table.Column<int>(type: "INTEGER", nullable: true)
+                    price = table.Column<double>(type: "REAL", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Songs", x => x.sid);
+                    table.PrimaryKey("PK_Songs", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Songs_Albums_Albumid",
-                        column: x => x.Albumid,
+                        name: "FK_Songs_Albums_albumId",
+                        column: x => x.albumId,
                         principalTable: "Albums",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Songs_Albumid",
+                name: "IX_Songs_albumId",
                 table: "Songs",
-                column: "Albumid");
+                column: "albumId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
