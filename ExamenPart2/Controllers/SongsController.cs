@@ -1,4 +1,7 @@
-﻿using ExamenPart2.Core.Entities;
+﻿using ExamenPart2.Core;
+using ExamenPart2.Core.Entities;
+using ExamenPart2.Core.Enums;
+using ExamenPart2.Core.Interfaces;
 using ExamenPart2.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -14,10 +17,11 @@ namespace ExamenPart2.API.Controllers
     [ApiController]
     public class SongsController : ControllerBase
     {
-        private readonly ExamenPart2DbContext dbContext;
-        public SongsController(ExamenPart2DbContext _context)
+        private readonly ISongService _songService;
+
+        public SongsController(ISongService songService)
         {
-            dbContext = _context;
+            _songService = songService;
         }
         // GET: api/<SongsController>
         [HttpGet]
@@ -36,32 +40,55 @@ namespace ExamenPart2.API.Controllers
 
         // POST api/<SongsController>
         [HttpPost]
-        public void Post([FromBody] Song bodySong)
+        public ActionResult<Song> Post([FromBody] Song bodySong)
         {
-            Song nSong = new Song
+            var serviceResult = _songService.AddSong(bodySong);
+            if (serviceResult.ResponseCode != ResponseCode.Success)
+                return BadRequest(serviceResult.Error);
+            var result = new Song
             {
-                albumId = bodySong.albumId,
-                artistName = bodySong.artistName,
-                bought = bodySong.bought,
-                duration = bodySong.duration,
-                popularity=bodySong.popularity,
-                price=bodySong.price,
-                sid=bodySong.sid,
-                songName=bodySong.songName,
+                songName = serviceResult.Result.songName,
+                artistName = serviceResult.Result.artistName,
+                bought = serviceResult.Result.bought,
+                popularity = serviceResult.Result.popularity,
+                sid = serviceResult.Result.sid,
+                price = serviceResult.Result.price,
+                albumId= serviceResult.Result.albumId,
+                duration=serviceResult.Result.duration
             };
 
-            var songsinAlbum = dbContext.Songs.Where(x => x.albumId == bodySong.albumId);
-            var score = songsinAlbum.Sum(x => x.popularity)/songsinAlbum.Count();
-            dbContext.Songs.Add(nSong);
-            dbContext.SaveChanges();
+            return Ok(result);
 
-            var modifiedAlbum = dbContext.Albums.FirstOrDefault(x => x.id == nSong.albumId);
-            modifiedAlbum.score = score;
-            var fullAlbumprice = songsinAlbum.Sum(x => x.price) + nSong.price;
-            modifiedAlbum.price = fullAlbumprice - (fullAlbumprice * 0.1);
 
-            dbContext.Albums.Update(modifiedAlbum);
-            dbContext.SaveChanges();
+
+
+
+
+
+            //Song nSong = new Song
+            //{
+            //    albumId = bodySong.albumId,
+            //    artistName = bodySong.artistName,
+            //    bought = bodySong.bought,
+            //    duration = bodySong.duration,
+            //    popularity=bodySong.popularity,
+            //    price=bodySong.price,
+            //    sid=bodySong.sid,
+            //    songName=bodySong.songName,
+            //};
+
+            //var songsinAlbum = dbContext.Songs.Where(x => x.albumId == bodySong.albumId);
+            //var score = songsinAlbum.Sum(x => x.popularity)/songsinAlbum.Count();
+            //dbContext.Songs.Add(nSong);
+            //dbContext.SaveChanges();
+
+            //var modifiedAlbum = dbContext.Albums.FirstOrDefault(x => x.id == nSong.albumId);
+            //modifiedAlbum.score = score;
+            //var fullAlbumprice = songsinAlbum.Sum(x => x.price) + nSong.price;
+            //modifiedAlbum.price = fullAlbumprice - (fullAlbumprice * 0.1);
+
+            //dbContext.Albums.Update(modifiedAlbum);
+            //dbContext.SaveChanges();
 
         }
 
